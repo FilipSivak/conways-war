@@ -22,13 +22,12 @@ $configurator->createRobotLoader()
 // Create Dependency Injection container from config.neon file
 $container = $configurator->createContainer();
 
+$router = new Nette\Application\Routers\RouteList();
+$router[] = new Nette\Application\Routers\Route('index.php', 'Homepage:default', Route::ONE_WAY);
+$router[] = new Nette\Application\Routers\Route('<presenter>/<action>[/<id>]', 'Homepage:default');
+
 // Router
-$container->addService("router", function($container) {
-	$router = new Nette\Application\Routers\RouteList();
-	$router[] = new Nette\Application\Routers\Route('index.php', 'Homepage:default', Route::ONE_WAY);
-	$router[] = new Nette\Application\Routers\Route('<presenter>/<action>[/<id>]', 'Homepage:default');
-	return $router;
-});
+$container->addService("router", $router);
 
 /* DOCTRINE */
 $entityManager = require "doctrine_bootstrap.php";
