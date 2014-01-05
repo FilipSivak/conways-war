@@ -9,6 +9,7 @@
 namespace util;
 
 // TODO: all other exception in util should probably extend this
+/** Exception that is handled by client */
 class AppException extends \RuntimeException {
 
     public function __construct($message = null) {

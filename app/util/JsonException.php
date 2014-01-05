@@ -4,6 +4,7 @@
 
 	use Nette\Application\Responses\JsonResponse;
 
+    /** Serialized exception into json */
 	class JsonException extends JsonResponse {
 
 		public function __construct(\Exception $e) {

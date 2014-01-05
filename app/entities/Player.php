@@ -4,7 +4,8 @@ namespace entities;
 
 use \Nette\Security\IIdentity;
 
-/**
+/** Abstract player. Parent of players.
+ *
  * @Entity
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="discr", type="string")
@@ -16,14 +17,18 @@ class Player implements IIdentity {
 	/** @Id @Column(type="integer") @GeneratedValue */
 	protected $id;
 	
-	/** @Column(type="string") */
+	/**
+     *  Serves for login.
+     * @Column(type="string") */
 	protected $email;
 	
-	/** @Column(type="string") */
+	/** Serves for game recognition between players.
+     * @Column(type="string") */
 	protected $nickname;
 
     /**
      * Returns a list of roles that the user is a member of.
+     * NOT IMPLEMENTED
      * @return array
      */
     function getRoles()

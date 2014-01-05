@@ -12,9 +12,18 @@ use \entities\Game;
 use \entities\CellChanged;
 use util\JsonException;
 
+/**
+    Presenter handles gameplay
+ */
 class GamePlayPresenter extends BasePresenter
 {
 
+    /**
+     *  Handles game start (game play)
+     *
+     * Responds with moves.
+     * Check's who is next to be sending move.
+     */
     public function renderPlay()
     {
         try {
@@ -81,6 +90,9 @@ class GamePlayPresenter extends BasePresenter
         }
     }
 
+    /**
+     *  Stat's bot play and immediately sends first bot's move.
+     */
     public function renderBotPlay() {
         $playerId = $this->getUser()->getId();
         $playerRef = $this->em->getReference("entities\\Player", $playerId);
@@ -144,6 +156,7 @@ class GamePlayPresenter extends BasePresenter
         $this->em->flush();
     }
 
+    /** Adds cells given by array of "x,y" strings into gameMove */
     protected function addBotCells(entities\GameMove $gameMove,$baseX,$baseY, $points)
     {
         foreach ($points as $p) {
@@ -163,6 +176,9 @@ class GamePlayPresenter extends BasePresenter
         return $gameMove;
     }
 
+    /**
+     *  Get's move from json request and persist's it
+     */
     public function renderMove()
     {
         // TODO: secure players
@@ -210,6 +226,7 @@ class GamePlayPresenter extends BasePresenter
         $this->sendResponse(new JsonResponse(array("ok" => "1")));
     }
 
+    /** Check's whether move of opponent was submitted */
     public function renderIsReady()
     {
         $this->securedMethod();

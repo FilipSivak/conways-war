@@ -3,7 +3,8 @@
 namespace entities;
 use Symfony\Component\Yaml\Exception\RuntimeException;
 
-/** @Entity(repositoryClass="repositories\GameRepository")
+/** Represents game, that was created by Player $owner.
+ *  @Entity(repositoryClass="repositories\GameRepository")
     @Table(name="game")
  */
 class Game {
@@ -11,12 +12,16 @@ class Game {
 	/** @Id @Column(type="integer") @GeneratedValue */
 	public $id;
 	
-	/** @Column(type="boolean") */
+	/**
+     * Denotes, whether game is visible.
+     * Hidden game is currently unplayable.
+     * @Column(type="boolean") */
 	protected $isPublic;
 	
 	 /**
 	 * Link to game, so that other player can just type the link and join.
-	 * Link is automatically generated (by application, not database) 
+	 * Link is automatically generated (by application, not database)
+      * NOT YET IMPLEMENTED
 	 * @Column(type="string") */
 	protected $link;
 	
@@ -32,25 +37,31 @@ class Game {
 	protected $state;
 	 
 	/** 
-	 * Timestamp of start of game
+	 * DateTime of start of game (the time, when other player joined)
 	 * 
 	 * @Column(type="datetime", nullable=true)
 	 * */
 	protected $gameStartTime;
 
-    /** @Column(type="datetime")  */
+    /** DateTime of creation of game (the time, when game was created)
+     * @Column(type="datetime")  */
     protected $gameCreateTime;
 
-    /** @ManyToOne(targetEntity="entities\Player")
+    /**
+     * The one, who created game.
+     * @ManyToOne(targetEntity="entities\Player")
      *  @JoinColumn(name="owner_id", referencedColumnName="id")
      */
     protected $owner;
 
-    /** @ManyToOne(targetEntity="entities\Player")
+    /** The one, who have joined game.
+     *  @ManyToOne(targetEntity="entities\Player")
         @JoinColumn(name="opponent_id", referencedColumnName="id")
      */
     protected $opponent;
 
+    /** json conversion (converted into json later on ..)
+     *  @return array */
     public function toArray() {
         $data = array(
             "id" => $this->getId(),
@@ -79,6 +90,10 @@ class Game {
         return $data;
     }
 
+    /**
+        Gets enemy for given player.
+     *  If player is owner, returns opponent, and vice versa.
+     */
     public function getEnemyFor($playerId) {
         if($playerId == $this->getOwner()->getId()) {
             $enemy = $this->getOpponent();

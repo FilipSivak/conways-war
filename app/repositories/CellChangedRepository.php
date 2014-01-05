@@ -8,15 +8,16 @@
 
 namespace repositories;
 
-
+/** Repository for CellChanged entity */
 class CellChangedRepository extends BaseRepository {
 
+    /** Find's all cells by game, fetches gameMove, and player */
     public function findCellsByGame($gameId) {
 
         $gameRef = $this->_em->getReference("entities\\Game", $gameId);
 
         /** @var \Doctrine\ORM\Query */
-        $query = $this->_em->createQuery("  SELECT c,gm
+        $query = $this->_em->createQuery("  SELECT c,gm,p
                                             FROM entities\\CellChanged c
                                             JOIN c.gameMove gm
                                             JOIN gm.player p
@@ -24,7 +25,7 @@ class CellChangedRepository extends BaseRepository {
                                             ORDER BY gm.round ASC");
         $query->setParameter("game", $gameRef);
 
-        // TODO: hydratation
+        // TODO: hydratation ?
         return $query->getResult();
     }
 

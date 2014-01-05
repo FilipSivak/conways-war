@@ -2,14 +2,19 @@
 
 namespace entities;
 
-/** @Entity(repositoryClass="repositories\RegisteredPlayerRepository")
+/**
+ *  Player that was registered by application.
+ *  Other type of plyers will be for example FacebookPlayer
+ * @Entity(repositoryClass="repositories\RegisteredPlayerRepository")
  */
 class RegisteredPlayer extends Player {
 	
 	/** @Column(type="string") */
 	protected $password;
 	
-	/** @Column(type="string") */
+	/**
+     *  Random salt for each user. Salt is randomly generated number.
+     * @Column(type="string") */
 	protected $salt;
 
     /**

@@ -8,7 +8,8 @@
 
 namespace util;
 
-class UserAlreadyExistsException extends \RuntimeException {
+/** thrown in registration process, when user with email adress is present in database */
+class UserAlreadyExistsException extends AppException {
 
     public function __construct($message) {
         parent::__construct($message);

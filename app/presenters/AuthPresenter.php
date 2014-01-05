@@ -13,15 +13,25 @@ use util\JsonException;
 use util\AuthException;
 use util\UserAlreadyExistsException;
 
+/**
+    Presenter responsible for login, registering and authorization.
+ */
 class AuthPresenter extends BasePresenter implements IAuthenticator  {
 
     const MSG_CREDENTIALS_WRONG = "Wrong login or password!";
 
+    /**
+        Sets self as authentificator
+     */
     public function startup() {
         parent::startup();
         $this->getUser()->setAuthenticator( $this );
     }
 
+    /** Login of user.
+     *  Responds with {auth: 1, player: ..} when logged in.
+        Responds with {auth: 0} when not.
+     */
     public function renderLogin() {
         // get parameters from request
         try {
@@ -60,6 +70,10 @@ class AuthPresenter extends BasePresenter implements IAuthenticator  {
         // TODO: handle AppException?
     }
 
+    /**
+        Gets current logged in identity.
+     *  Responds with {player: ..}
+     */
     public function renderGetIdentity() {
         $user = $this->getUser();
 
@@ -70,6 +84,9 @@ class AuthPresenter extends BasePresenter implements IAuthenticator  {
         }
     }
 
+    /**
+        Logs out currently logged in player.
+     */
     public function renderLogout() {
         $user = $this->getUser();
         $user->logout();
@@ -79,6 +96,7 @@ class AuthPresenter extends BasePresenter implements IAuthenticator  {
         )));
     }
 
+    /** Registers player */
     public function renderRegister() {
         $r = $this->getHttpRequest();
         $email = $r->getPost('email');
@@ -117,6 +135,7 @@ class AuthPresenter extends BasePresenter implements IAuthenticator  {
         }
     }
 
+    /** Authenticator implementation */
     public function authenticate(array $credentials) {
         $email = $credentials[0];
         $password = $credentials[1];
@@ -137,6 +156,7 @@ class AuthPresenter extends BasePresenter implements IAuthenticator  {
         }
     }
 
+    /** Hashes password with salt */
     protected function hash($password, $salt) {
         // TODO: use crypt
         return sha1($password.$salt."baf".$salt);

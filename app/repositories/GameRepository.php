@@ -11,8 +11,10 @@ namespace repositories;
 
 class GameRepository extends BaseRepository {
 
-    /** Returns array of public games that can be joined to */
-    public function getGameList($playerId, $page = 1) {
+    /** Returns QUERY of public games that can be joined to
+     *  Query is intended to be paginated.
+     */
+    public function getGameList($playerId) {
         /** @var \Doctrine\ORM\Query */
         $query = $this->_em->createQuery("  SELECT g
                                             FROM entities\\Game g

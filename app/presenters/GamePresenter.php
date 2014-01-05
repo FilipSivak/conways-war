@@ -12,13 +12,15 @@ use entities\Game;
 class GamePresenter extends BasePresenter
 {
 
+    /** Marks presenter as secured */
     public function startup() {
         parent::startup();
 
         // All methods are secured
         $this->securedMethod();
     }
-	
+
+    /** Not used. */
 	public function renderDefault()
 	{
 		// test of database
@@ -59,6 +61,7 @@ class GamePresenter extends BasePresenter
 		}
 	}
 
+    /** Return's paginated list of games */
     public function renderListGames() {
         $page = $this->getHttpRequest()->getPost("page");
         if($page == null) {
@@ -98,6 +101,7 @@ class GamePresenter extends BasePresenter
         )));
     }
 
+    /** Joins game */
     public function renderJoin() {
         try {
             $this->securedMethod();
@@ -122,6 +126,7 @@ class GamePresenter extends BasePresenter
         }
     }
 
+    /** Called when game is over (finished) and sets Game->state to 1 (finished). */
     public function renderFinish() {
         $this->securedMethod();
 
@@ -129,6 +134,7 @@ class GamePresenter extends BasePresenter
         /** @var entities\Game $game */
         $game = $this->em->find("entities\\Game", $gameId);
 
+        // TODO: introduce constant
         $game->setState(1);
         $this->em->merge( $game );
         $this->em->flush();
@@ -136,6 +142,7 @@ class GamePresenter extends BasePresenter
         $this->sendResponse( new JsonResponse(array("ok" => 1)) );
     }
 
+    /** Cancells game, taht player owns */
     public function renderCancel() {
         try {
             $id = $this->getHttpRequest()->getPost("id");

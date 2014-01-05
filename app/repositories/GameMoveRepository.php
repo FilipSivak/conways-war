@@ -11,6 +11,7 @@ namespace repositories;
 
 use Symfony\Component\Yaml\Exception\RuntimeException;
 
+/** Repository for GameMove entity */
 class GameMoveRepository extends BaseRepository {
 
     public function findByPlayerAndGame($playerId, $gameId) {
@@ -31,6 +32,8 @@ class GameMoveRepository extends BaseRepository {
         return $query->getSingleResult();
     }
 
+    /** Returns who is next to play
+     *  Considers onHand counts */
     public function whosNext($gameId) {
         $gameRef = $this->_em->getReference( "entities\\Game", $gameId );
         $query = $this->_em->createQuery("  SELECT gm
@@ -59,6 +62,7 @@ class GameMoveRepository extends BaseRepository {
         return $next;
     }
 
+    /** Get's last move, that was played */
     public function getLastMove($gameId, $playerId) {
         $qameRef = $this->_em->getReference("entities\\Game", $gameId);
         $playerRef = $this->_em->getReference("entities\\Player", $playerId);
@@ -75,6 +79,7 @@ class GameMoveRepository extends BaseRepository {
         return $query->getResult();
     }
 
+    /** Gets count of life cells, that given player have putted in given game */
     public function getLifeCellsCount($gameId, $playerId) {
         $gameRef = $this->_em->getReference("entities\\Game", $gameId);
         $playerRef = $this->_em->getReference("entities\\Player", $playerId);
@@ -90,6 +95,7 @@ class GameMoveRepository extends BaseRepository {
         return $res[1];
     }
 
+    /** NOT USED */
     public function findByMoveAndPlayer($moveId, $playerId) {
         /*$playerRef = $this->_em->getReference("entities\\Player", $playerId);
         $moveRef = $this->_em->getReference("entities\\GameMove", $moveId);

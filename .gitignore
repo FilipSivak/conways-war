@@ -1,0 +1,7 @@
+libs/
+log/
+temp/
+app/config/dbconfig_prod.ini
+app/config/dbconfig_test.ini
+www/plovr.jar
+composer.lock

@@ -2,7 +2,8 @@
 
 namespace entities;
 
-/** @Entity(repositoryClass="repositories\GameMoveRepository")
+/** Single move in Game. Is child of Game.
+ *  @Entity(repositoryClass="repositories\GameMoveRepository")
     @Table(name="gamemove")
  */
 class GameMove {
@@ -10,21 +11,27 @@ class GameMove {
 	/** @Id @Column(type="integer") @GeneratedValue */
 	protected $id;
 	
-	/** @Column(type="integer") */
+	/** Specifies order of moves.
+     * @Column(type="integer") */
 	protected $round;
 	
-	/** @Column(type="datetime") */
+	/** DateTime when move was submitted.
+     * @Column(type="datetime") */
 	protected $submitTime;
 
-    /** @ManyToOne(targetEntity="entities\Player")
+    /** Player that has submitted move.
+     *  @ManyToOne(targetEntity="entities\Player")
         @JoinColumn(name="player_id", referencedColumnName="id") */
     protected $player;
 
-    /** @ManyToOne(targetEntity="entities\Game")
+    /** Game this move belongs to.
+     *  @ManyToOne(targetEntity="entities\Game")
     @JoinColumn(name="game_id", referencedColumnName="id", onDelete="CASCADE") */
     protected $game;
 
-    /** @OneToMany(targetEntity="CellChanged", mappedBy="gameMove", cascade={"persist"})  */
+    /** Cells that are beeing putted in this move (childs).
+     * @var \Doctrine\Common\Collections\ArrayCollection()
+     * @OneToMany(targetEntity="CellChanged", mappedBy="gameMove", cascade={"persist"})  */
     protected $cells;
 
     function __construct() {

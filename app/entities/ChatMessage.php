@@ -2,7 +2,8 @@
 
 namespace entities;
 
-/** @Entity(repositoryClass="repositories\ChatMessageRepository")
+/** Not yet implemented.
+ * @Entity(repositoryClass="repositories\ChatMessageRepository")
  *  @Table(name="chatmessage") */
 class ChatMessage {
 	

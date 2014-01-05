@@ -8,6 +8,8 @@
 
 namespace util;
 
+/** AuthException, that is handled by client.
+ * Client handles exception by redirecting to login form*/
 class AuthException extends AppException {
 
 } 

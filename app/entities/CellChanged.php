@@ -2,7 +2,10 @@
 
 namespace entities;
 
-/** @Entity(repositoryClass="repositories\CellChangedRepository")
+/**
+ *  Represents single life cell that was added to board.
+ *  Is child of GameMove.
+ * @Entity(repositoryClass="repositories\CellChangedRepository")
     @Table(name="cellchanged")
  */
 class CellChanged {
@@ -16,13 +19,18 @@ class CellChanged {
 	/** @Column(type="integer") */
 	protected $coordY;
 	
-	/** @Column(type="integer") */
+	/** Not used.
+     * @Column(type="integer") */
 	protected $moveType;
 
     /** @ManyToOne(targetEntity="entities\GameMove")
     @JoinColumn(name="gameMove_id", referencedColumnName="id", onDelete="CASCADE") */
     protected $gameMove;
 
+    /**
+        Function for json conversion (converts to array, that is further converted into json by Nette Framework)
+     *  @return array
+     */
     public function toArray() {
         return array(
             "x" => $this->getCoordX(),
