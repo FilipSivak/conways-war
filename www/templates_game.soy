@@ -1,0 +1,151 @@
+{namespace wa1.templates.game}
+
+/** 
+	@param player
+	@param opponent
+*/
+{template .gameBoard}
+<div id="gameBoard">
+	<div>
+		{call .playerInfo}
+			{param player: $player /}
+			{param playerType}player{/param}
+		{/call}
+		
+		<div id="board">
+			Loading game board ..
+		</div>
+		
+		{call .playerInfo}
+			{param player: $opponent /}
+			{param playerType}opponent{/param}
+		{/call}
+		
+		<div class="cleaner">&nbsp;</div>	/** TODO: is this right way to clear? */
+	</div>
+	<div>
+		<button class="btnSubmitMove">Submit move!</button>
+	</div>
+</div>
+{/template}
+
+/** 
+	@param player
+	@param playerType player / opponent
+*/
+{template .playerInfo}
+	<div class="playerInfo {$playerType}">
+		<h2>{$player.nickname}</h2>
+		/*{if $playerType == "player"}
+			(YOU)
+		{else}
+			(ENEMY)
+		{/if}*/
+		
+		Life in hand:<strong class="boardCount" id="canPut_{$playerType}"></strong><br>
+		Life on board:<strong class="boardCount" id="onBoard_{$playerType}"></strong><br>
+	</div>
+{/template}
+
+/** 
+	@param winner
+	@param playerScore
+	@param opponentScore
+*/
+{template .endGame}
+	<div class="centerBox">
+	<h2> Game is finished! </h2>
+		{if $winner == 1}
+			<h2> It's draw! </h2>
+		{else}
+			<h2> Winner is: {$winner.nickname} </h2>
+		{/if}
+		
+		Your score: {$playerScore} <br>
+		Opponent's score: {$opponentScore} <br>
+	</div>
+{/template}
+
+/** */
+{template .newGame}
+	<div class="centerBox">
+		<h2>New game</h2>
+		<form action="game/newGame" role="form" id="formNewGame">
+			{call templates.formInput}
+				{param name}gameTitle{/param}
+				{param title}Title:{/param}
+			{/call}
+			
+			<div class="checkbox">
+				<label for="gamePublic">
+					<input type="checkbox" checked id="gamePublic" name="gamePublic"> Public
+				</label>
+			</div>
+			
+			<button type="submit" id="btnNewGame" class="btn btn-default">Create new game</button>  
+		</form>
+	</div>
+{/template}
+
+/** @param header
+	@param data
+	@param playerId
+	@param scopeId
+	
+	@param pagerId
+	@param currentPage
+	@param maxPage
+*/
+{template .dataTable}
+	<table id="{$scopeId}" class="table table-hover">
+		<!-- Header -->
+		<tr>
+			{foreach $head in $header}
+				<th>{$head}</th>
+			{/foreach}
+		</tr>
+		
+		<!-- Data -->
+		{foreach $obj in $data}
+			<tr>
+				<td>{$obj.title}</td>
+				<td>{$obj.owner.nickname}</td>
+				<td>{$obj.gameCreateTime}</td>
+				{if $obj.opponent != undefined}
+					<td> <button class='btn btnPlay' data-id='{$obj.id}'  href="#playGame-{$obj.id}">
+						{if $obj.state == 0}Play{else}Show replay{/if}
+						</button> 
+					</td>
+				{else}
+					{if $playerId == $obj.owner.id}
+						<td> <button class='btn btnCancell' data-id='{$obj.id}'  href="#cancellGame-{$obj.id}">Cancel my game</button> </td>
+					{else}
+						<td> <button class='btn btnJoinGame' data-id='{$obj.id}' href="#joinGame-{$obj.id}">Join game</button> </td>
+					{/if}
+				{/if}
+			</tr>
+		{/foreach}
+	</table>
+
+	/* Clalls pagination template and passes all variables from "this" scope */
+	{call .paginate data="all" /}
+{/template}
+
+/** 
+	@param pagerId
+	@param currentPage
+	@param maxPage
+*/
+{template .paginate}
+<ul id="{$pagerId}" class="pagination">
+  <li {if $currentPage == 1}class="disabled"{/if}><a {if $currentPage != 1}class="pageBack"{/if} href="#">&laquo;</a></li>
+  {for $i in range(1,$maxPage+1)}
+	{if $i == $currentPage}
+		<li class="active"><a href="#">{$i}<span class="sr-only">(current)</span></a></li>
+	{else}
+		<li><a class="btnPage" data-page="{$i}" href="#">{$i}</a></li>
+	{/if}
+  {/for}
+  <li {if $currentPage == $maxPage}class="disabled"{/if}><a {if $currentPage != $maxPage}class="pageForward"{/if} href="#">&raquo;</a></li>
+</ul>
+{/template}

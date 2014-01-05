@@ -1,0 +1,10 @@
+Styly
+
+- button v registraci nemá styl (a login)
+
+Samostatný FyPy framework
+- Form.class.js
+- JsonRequest.class.js
+- Handlers
+
+security

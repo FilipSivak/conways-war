@@ -1,0 +1,10 @@
+<meta charset="UTF-8">
+
+<h1> Hello </h1>
+
+<p> Toto je semestrálka WA1 </p>
+
+{foreach $chatMessages as $message}
+	Zpráva: {$message->getText()} <br>
+	Zpráva2: <?= $message->getText() ?> <br> <br> 
+{/foreach}

@@ -1,0 +1,14 @@
+{namespace templates}
+
+/** 
+	Form input with label
+	@param name
+	@param title
+	@param? type
+*/
+{template .formInput} 
+<div class="form-group">
+	<label for="{$name}">{$title}</label>
+	<input type="{if not $type}text{else}{$type}{/if}" required class="form-control" id="{$name}" name="{$name}">
+</div>	
+{/template}

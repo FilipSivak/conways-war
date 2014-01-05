@@ -1,0 +1,60 @@
+{namespace wa1.templates.auth}
+
+/** */
+{template .login}
+	<div class="centerBox">
+		<h2>Login</h2>
+		
+		<form id="formLogin" action="auth/login">
+			{call templates.formInput}
+				/* TODO: validation! */
+				{param name}email{/param}
+				{param title}Email{/param}
+				{param type}email{/param}
+			{/call}
+			
+			{call templates.formInput}
+				{param name}password{/param}
+				{param title}Password{/param}
+				{param type}password{/param}
+			{/call}
+			
+			<button type="submit" class="btn btn-default">Log in!</button>
+		
+		</form>
+	</div>
+{/template}
+
+/** */
+{template .register}
+	<div class="centerBox">
+		<h2>Register</h2>
+		
+		<form id="formRegister" action="auth/register">
+			{call templates.formInput}
+				{param name}email{/param}
+				{param title}Email{/param}
+				{param type}email{/param}
+			{/call}
+			
+			{call templates.formInput}
+				{param name}nickname{/param}
+				{param title}Nickname{/param}
+				{param type}nickname{/param}
+			{/call}
+			
+			{call templates.formInput}
+				{param name}password{/param}
+				{param title}Password{/param}
+				{param type}password{/param}
+			{/call}
+			
+			<div class="note">No confirmation email will be sent. If you lost you'r password, you can
+			always email me to <a href='mailto:Fidilip@gmail.com'>Fidilip@gmail.com</a>
+			</div>
+			
+			<button type="submit" class="btn btn-default">Register me!</button>
+		
+		</form>
+	</div>
+{/template}

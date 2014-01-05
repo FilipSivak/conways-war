@@ -1,0 +1,53 @@
+#page {	
+	margin-top: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#gameBoard {
+	width: 1070px;
+	margin: 0px auto;
+}
+
+.centerBox {
+	width: 300px;
+	margin: 0px auto;
+}
+
+.note {
+	margin: 10px;
+}
+
+canvas {
+	border: 1px solid blue;
+}
+
+.navbar-nav > li > div {
+	color: #777;
+
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-right: 30px;
+}
+
+/* Game board */
+#content .playerInfo, #board {
+	float: left;
+}
+
+#content .playerInfo {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#content .player h2 { color: blue; }
+#content .opponent h2 { color: red; }
+
+#content .playerInfo .boardCount {
+	width: 20px;
+	display: block;
+}
+
+.cleaner {
+	clear: both;
+}

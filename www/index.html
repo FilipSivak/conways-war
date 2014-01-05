@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<!-- TODO: deny google from indexing -->
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Conway's wargame</title>
+	
+	<!-- TODO: compress stylesheets into one -->
+	<!-- TODO: use bover -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/dialog.css">
+</head>
+
+<body id="body">
+<div id="page">
+  
+	<!-- Navbar -->
+	<nav id="navigation" class="navbar navbar-default" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">Conway's wargame</a>
+		</div>
+		
+		<ul class="nav navbar-nav">
+			
+			<li> <a class="gotoLogin" href="#login">Log me in</a> </li>
+			<li> <a class="gotoRegister" href="#register">Register me</a> </li>
+			<li> <a class="gotoNewGame" href="#newGame">New multiplayer game</a> </li>
+			<li> <a class="gotoBotGame" href="#botGame">New bot game</a> </li>
+			<li> <a class="gotoListGames" href="#listGames">List games</a> </li>
+		</ul>
+		
+		<!-- Right side - login? -->
+		<ul id="loginBar" class="nav navbar-nav navbar-right">
+			<li><div id="loginInfo"></div> </li>
+		</ul>
+	</nav>
+  
+	<div id="content">
+		<div class="centerBox">
+			<!-- Loading graphic -->
+			Loading ...
+		</div>
+	</div>
+  
+	<!-- <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+	<!-- DEV --
+		<script type="text/javascript" src="http://127.0.0.1:9810/compile?id=sample"></script> 
+	<!-- -->
+	
+	<!-- PROD --> 
+		<script type="text/javascript" src="compiled.js"></script>
+	<!-- -->
+
+</div>
+</body>
+
+</html>
