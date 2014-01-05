@@ -10,8 +10,5 @@
 		"nette/nette": "= 2.0.14",
 		"doctrine/orm": "2.*",
 		"symfony/yaml": "2.*"
-	},
-	"require-dev": {
-        "phpdocumentor/phpdocumentor": "2.*"
-    }
+	}
 }
